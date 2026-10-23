@@ -1,0 +1,15 @@
+# Dependency directory (recreated with pnpm install)
+node_modules/
+
+# Private environment variables and database credentials (NEVER commit!)
+.env
+.env.*
+!.env.example
+
+# Build output and logs
+dist/
+*.log
+
+# Operating system files
+.DS_Store
+Thumbs.db
