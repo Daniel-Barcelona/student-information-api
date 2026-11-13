@@ -1,10 +1,13 @@
 import 'dotenv/config';
-import { pool } from './db';
+import { pool } from './db.js';
 import express from 'express';
 import type { Request, Response } from 'express';
-import studentRoutes from './routes/studentRoutes';
+import studentRoutes from './routes/studentRoutes.js';
 
 const app = express();
+// Read Render's assigned PORT in production, or fall back to 4000 on your laptop
+const PORT = Number(process.env.PORT) || 4000;
+ 
 
 app.use(express.json());
 
@@ -101,7 +104,7 @@ app.use((req, res) => {
   });
 });
 
-app.listen(4000, () => {
+app.listen(PORT, () => {
   pool.query('SELECT NOW()')
   .then(() => console.log('Database connected successfully'))
   .catch((error: unknown) => {
@@ -112,5 +115,5 @@ app.listen(4000, () => {
     }
     console.error('Database connection failed:', error);
   });
-  console.log('Server running at http://localhost:4000');
+  console.log(`Server running at http://localhost:${PORT}`);
 });

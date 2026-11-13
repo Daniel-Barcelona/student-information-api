@@ -1,4 +1,4 @@
-import { pool } from '../db';
+import { pool } from '../db.js';
 import type { Request, Response } from 'express';
 
 // export function getStudents(req: Request, res: Response) {
@@ -128,7 +128,8 @@ export async function updateStudent(req: Request, res: Response): Promise<void> 
   // The route parameter is text; accept only a positive, safe whole-number ID.
   const idText = req.params.id;
   const id = Number(idText);
-  if (!/^\d+$/.test(idText) || !Number.isSafeInteger(id) || id < 1) {
+  if (typeof idText !== 'string' || !/^\d+$/.test(idText) ||
+      !Number.isSafeInteger(id) || id < 1) {
     res.status(400).json({ message: 'Student ID must be a positive integer' });
     return;
   }
@@ -207,7 +208,8 @@ export async function deleteStudent(req: Request, res: Response): Promise<void> 
   const id = Number(idText);
  
   // Stop if the ID is not a positive, safe whole number.
-  if (!/^\d+$/.test(idText) || !Number.isSafeInteger(id) || id < 1) {
+  if (typeof idText !== 'string' || !/^\d+$/.test(idText) ||
+      !Number.isSafeInteger(id) || id < 1) {
     res.status(400).json({ message: 'Student ID must be a positive integer' });
     return;
   }
